@@ -22,11 +22,14 @@ public abstract class BusinessNode {
      * @return
      */
     public final void handleRequest(RequestContext context, Response response) throws Exception {
-
+        this.handle(context, response);
+        if (this.next != null && !ChannelHolder.isDone()) {
+            next.handleRequest(context, response);
+        }
     }
 
     /**
      * 真正的处理业务
      */
-    public abstract void handle(RequestContext context, Response response) throws Exception;
+    protected abstract void handle(RequestContext context, Response response) throws Exception;
 }
