@@ -46,13 +46,19 @@ public final class ChannelHolder {
      * @return channelo
      */
     public static Channel getChannel() {
-        return holders.get();
+        Channel c = holders.get();
+        if (c == null) {
+            c = new Channel();
+            localDone.set(false);
+            holders.set(c);
+        }
+        return c;
     }
 
     /**
      * 重置当前线程的一些参数
      */
-    public void reset() {
+    public static void reset() {
         holders.remove();
         localDone.remove();
     }

@@ -45,7 +45,7 @@ public class Channel {
      */
     public void addNode(BusinessNode node) {
         if (this.state == 2) {
-            throw new ChannelRunningException();
+            throw new ChannelFinishedException();
         }
         if (head == null) {
             this.head = node;
