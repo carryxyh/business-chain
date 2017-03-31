@@ -82,6 +82,7 @@ public class Channel {
         } catch (Exception e) {
             res.fail();
             exHandler.onException(e);
+            return res;
         }
         this.state = this.state << 1;
         ChannelHolder.done();
