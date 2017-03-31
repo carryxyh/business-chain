@@ -11,15 +11,6 @@ import lombok.Setter;
  */
 public class Channel {
 
-    @Getter
-    @Setter
-    private ExceptionHandler exHandler = new ExceptionHandler() {
-
-        public void onException(Exception ex) {
-            ex.printStackTrace();
-        }
-    };
-
     /**
      * 1运行中 2结束
      */
@@ -68,7 +59,7 @@ public class Channel {
         this.context.putIfAbsent(k, v);
     }
 
-    public synchronized Response handleRequest() {
+    public synchronized Response handleRequest() throws Exception {
         Response res = new Response();
         if (this.state == 2) {
             return res;
@@ -81,8 +72,7 @@ public class Channel {
             head.handleRequest(this.context, res);
         } catch (Exception e) {
             res.fail();
-            exHandler.onException(e);
-            return res;
+            throw e;
         }
         this.state = this.state << 1;
         ChannelHolder.done();
