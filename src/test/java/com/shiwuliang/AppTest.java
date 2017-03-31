@@ -35,7 +35,12 @@ public class AppTest
         c.addContextParam("1", 1);
         c.addContextParam("2", 2);
 
-        Response rsp = c.handleRequest();
+        Response rsp = null;
+        try {
+            rsp = c.handleRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(rsp.isSuccess());
         ChannelHolder.reset();
     }
