@@ -78,4 +78,18 @@ public class Channel {
         ChannelHolder.done();
         return res;
     }
+
+    @Override
+    public String toString() {
+        if (this.head == null) {
+            return "";
+        }
+        BusinessNode n = head;
+        StringBuilder builder = new StringBuilder(n.getClass().getSimpleName() + "---");
+        while (n.getNext() != null) {
+            n = n.getNext();
+            builder.append(n.getClass().getSimpleName() + "---");
+        }
+        return builder.toString();
+    }
 }
